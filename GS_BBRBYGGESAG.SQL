@@ -1,0 +1,48 @@
+Select
+				KOMMUNENUMMER AS Kommunenummer,
+				EJENDOMSNR AS Ejendomsnummer,
+				GS_BBRGRUND.Adresse,
+				GS_BBRGRUND.Afløbsforholdskode,
+				GS_BBRGRUND.Afløbsforhold,
+				GS_BBRGRUND.Tilladelseskode_til_afløbsforhold,
+				GS_BBRGRUND.Tilladelse_til_afløbsforhold,
+				GS_BBRGRUND.Vandforsyningskode,
+				GS_BBRGRUND.Vandforsyning,
+				BYS_ID AS Byggesag_Id,
+				GRU_ID AS Grund_Id,
+				BYGGESAG_DATO AS Byggesagsdato,
+				BYGGESAG_LITRA AS Litra,
+				SAGSNR AS Sagsnummer,
+				BYGGETILL_DATO AS Byggetilladelsesdato,
+				FORVPAABEGYNDDATO AS Forventet_påbegyndelsesdato,
+				PAABEGYND_DATO AS Påbegyndelsesdato,
+				IBRUG_TILLAD_DATO AS Ibrugtagningstilladelse,
+				DELVIS_IBRUG_DATO AS Delvis_ibrugtagningstilladelsesdato,
+				HENLAEGGELSE AS Henlæggelse,
+				BYG_ARL_FAERDIG AS Færdigt_bygningsareal,
+				FORVFULDFORETDATO AS Forventet_fuldført_dato,
+				FULDFOERT_DATO AS Fuldførelse_af_byggeri,
+				BYGGESAG_KODE AS Byggesagskode,
+				QL22700V.TEKST AS Byggesagstype,
+				ANMELDELSE_DATO AS Anmeldelse_af_byggearbejde,
+				ANMELDAFNEDRDATO AS Anmeldelse_af_nedrivning,
+				NEDRIVNING_DATO AS Gennemført_nedrivning,
+				BYG_ARL_FORE_FAER AS Foreløbig_færdiggjort_bygningsareal,
+				LEJL_ANT_FORE_FAER AS Foreløbig_færdiggjort_antal_lejligheder,
+				VAER_ANT_FORE_FAER AS Foreløb_færdiggjorte_ant_lejligheder_u_køkken,
+				BYGHERREFORHOLD AS Bygherreforholdskode,
+				QL22800V.TEKST AS Bygherreforhold,
+				ANSOEGNINGMODT AS Ansøgning_modtaget,
+				TSFYLDANSMODT AS Fyldestgørende_ansøgning_modtaget,
+				NABOORIENTERING AS Naboorientering,
+				TSNABOORI AS Færdigbehandlet_naboorientering,
+				OPRET_TS AS Opret_timestamp,
+				AENDR_TS AS Ændret_timestamp,
+				OPHOERT_TS AS Ophørt_timestamp,
+				GYLDIGHEDSDATO AS Gyldighedsdato
+
+FROM
+				JY70900V LEFT OUTER JOIN
+				GS_BBRGRUND ON JY70900V.GRU_ID = GS_BBRGRUND.Grund_Id LEFT OUTER JOIN
+				QL22800V ON JY70900V.BYGHERREFORHOLD = QL22800V.KODE LEFT OUTER JOIN
+				QL22700V ON JY70900V.BYGGESAG_KODE = QL22700V.KODE
