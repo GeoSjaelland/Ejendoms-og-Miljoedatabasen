@@ -4,7 +4,7 @@ Select
 				GS_BBRGRUND.Adresse,
 				GS_BBRGRUND.Afløbsforholdskode,
 				GS_BBRGRUND.Afløbsforhold,
-				GS_BBRGRUND.Tilladelseskode_til_afløbsforhold,
+				GS_BBRGRUND.Tilladelseskode_til_afløb,
 				GS_BBRGRUND.Tilladelse_til_afløbsforhold,
 				GS_BBRGRUND.Vandforsyningskode,
 				GS_BBRGRUND.Vandforsyning,
