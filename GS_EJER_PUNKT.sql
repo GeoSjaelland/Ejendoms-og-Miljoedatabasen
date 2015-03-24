@@ -23,6 +23,8 @@ SELECT
 				JY64900V.DOVTG AS Overtagelsesdato,
 				CAST(QL63700V.TEKST AS VARCHAR(75)) AS Overdragelsesmåde,
 				JY64900V.BKOEBS AS Købesum,
+				CAST(CAST(JY64900V.GKOETAEL AS varchar(6)) + '/' + CAST(JY64900V.GKOENAEV AS varchar(6)) AS varchar(12)) AS Køberandel,
+				CAST(CAST(JY64900V.GEJTAEL AS varchar(6)) + '/' + CAST(JY64900V.GEJNAEV AS varchar(6)) AS varchar(12)) AS Ejerandel,
 				JY64900V.DCPRCIR AS Ejer_CPR_CVR,
 				JY64800V.VEJ_KODE AS Vejkode,
 				JY64800V.HUS_NUMMER AS Husnummer_bogstav,
