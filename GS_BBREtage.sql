@@ -1,0 +1,32 @@
+SELECT
+				KOMMUNENUMMER AS Kommunenummer,
+				EJENDOMSNR AS Ejendomsnummer,
+				ETA_ID AS Etage_Id,
+				BYG_ID AS Bygningsident,
+				ETAGE AS Etage,
+				SAMLETAREAL AS Samlet_areal,
+				TAGETAGE_ARL_UDNYT AS Areal_af_udnyttet_del_af_tagetage,
+				KAELDER_ARL_U_125M AS Kælderareal_med_loft_u_125cm_over_terræn,
+				KAELDARLLOVIGBEBO AS Areal_af_lovlig_beboelse_i_kælder,
+				ADGANGSAREAL AS Etagens_adgangsareal,
+				ETA_KOMFELT1 AS Kommunalt_felt_1,
+				ETA_KOMFELT2 AS Kommunalt_felt_2,
+				ETA_KOMFELT3 AS Kommunalt_felt_3,
+				KOMFELT4 AS Kommunalt_felt_4,
+				KOMFELT5 AS Kommunalt_felt_5,
+				KOMFELT6 AS Kommunalt_felt_6,
+				JOURNR AS Journalnummer,
+				ESDH_REF AS ESDH_Reference,
+				OPRET_TS AS Opret_timestamp,
+				AENDR_TS AS Ændret_timestamp,
+				OPHOERT_TS AS Ophørt_timestamp,
+				ETAGETYPE AS Etagekode,
+				QL25900V.TEKST AS Etagetype,
+				GYLDIGHEDSDATO AS Gyldighedsdato,
+				VEJ_KODE AS Vejkode,
+				HUS_NUMMER AS Husnummer_bogstav,
+				CAST(JY70500V.KOMMUNENUMMER AS varchar(3)) + RIGHT('0000' + CONVERT(VARCHAR, JY70500V.VEJ_KODE), 4) + RTRIM(JY70500V.HUS_NUMMER) AS ADRESSELINK_ID,
+				CAST(JY70500V.KOMMUNENUMMER AS varchar(3)) + CAST(JY70500V.VEJ_KODE AS varchar(4)) + JY70500V.HUS_NUMMER AS ADRESSE_ID
+FROM
+				JY70500V LEFT OUTER JOIN
+				QL25900V ON JY70500V.ETAGETYPE = QL25900V.KODE

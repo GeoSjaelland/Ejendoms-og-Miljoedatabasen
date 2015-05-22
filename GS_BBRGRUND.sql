@@ -9,7 +9,7 @@ SELECT DISTINCT
 				JY70000V.GRU_VANDFORSY_KODE AS Vandforsyningskode,
 				QL26600V.TEKST AS Vandforsyning,
 				JY70000V.JOURNR AS Journalnummer,
-				JY70000V.ESDH_REF AS [ESDH-Reference],
+				JY70000V.ESDH_REF AS ESDH_Reference,
 				JY70000V.OPRET_TS AS Opret_timestamp,
 				JY70000V.AENDR_TS AS Ændret_timestamp,
 				JY70000V.OPHOERT_TS AS Ophørt_timestamp,

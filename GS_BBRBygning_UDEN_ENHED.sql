@@ -82,7 +82,6 @@ SELECT
 				Ændret_timestamp,
 				Ophørt_timestamp,
 				Kommunenr_KMS,
-				Feltreference,
 				Landsejerlav,
 				Kommunal_ejerlavskode,
 				KMS_Matrikelnummer,

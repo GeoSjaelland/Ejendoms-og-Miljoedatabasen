@@ -82,7 +82,6 @@ SELECT
 				JY70100V.AENDR_TS AS Ændret_timestamp,
 				JY70100V.OPHOERT_TS AS Ophørt_timestamp,
 				JY70100V.KOMKODE AS Kommunenr_KMS,
-				JY70100V.EREF AS Feltreference,
 				JY70100V.LANDSEJERLAVKODE AS Landsejerlav,
 				JY70100V.KOMEJERLAVKODE AS Kommunal_ejerlavskode,
 				JY70100V.MATRNR AS KMS_Matrikelnummer,
