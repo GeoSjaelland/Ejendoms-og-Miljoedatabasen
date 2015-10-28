@@ -15,7 +15,7 @@ SELECT
 					ELSE ''
 				END
 				+ A.beliggenhedsadresse_sidedoer) AS Adresse,
-				A.beliggenhedsadresse_bynavn,
+				A.beliggenhedsadresse_bynavn AS Bynavn,
 				A.beliggenhedsadresse_postnr AS Postnummer,
 				A.beliggenhedsadresse_postdistrikt AS Postdistrikt,
 				A.livsforloeb_startdato AS Startdato_CVR_P_Nummer,
