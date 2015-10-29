@@ -69,6 +69,7 @@ FROM
 				AND A.beliggenhedsadresse_vejkode = ADG.VejKode
 				AND RIGHT('000' + CONVERT(VARCHAR, A.beliggenhedsadresse_husnummerFra), 3)  + RTRIM(A.beliggenhedsadresse_bogstavFra) = ADG.HUS_NR
 WHERE	A.beliggenhedsadresse_kommune_kode = 336
-	AND (A.livsforloeb_ophoersdato = '' or A.livsforloeb_ophoersdato > GetDate())
+	 AND A.livsforloeb_ophoersdato = ''
+	 -- or A.livsforloeb_ophoersdato > GetDate() -- husk paranteser, hvis sidste betingelse skal med...
 
 	-- livsforloeb_ophoersdato er ikke oprettet som date i tabellen, så sidste betingelse er lidt meningsløs...
