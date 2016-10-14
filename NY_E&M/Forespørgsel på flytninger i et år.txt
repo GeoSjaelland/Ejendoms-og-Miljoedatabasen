@@ -1,0 +1,4 @@
+Select CPR, Fødselsdato, Navn, Adresse , Tilflytningsdato, Fraflytningsdato, Kommunetilflytningsdato, Kommunefraflytningsdato, FRAFLYT_KOMMUNENR, Fraflytningskommune, LAND_KODE, Land, BORGERSTATUS_KODE, Borgerstatus from GS_BORGER_FLYTNING
+where Year(Kommunetilflytningsdato)=2014 and BORGERSTATUS_KODE<10 and Kommunetilflytningsdato=Tilflytningsdato order by Navn, CPR, Tilflytningsdato into a
+Browse * From a
+G:\Grundtabeller\Administrator\DBMS\SQL\Breddam\Views\NY_E&M
