@@ -19,16 +19,16 @@ SELECT
 				CAST(QL63200V.TEKST AS VARCHAR(75)) AS Ejerstatus,
 				JY64900V.CPENS AS Pensionistkode,
 				CAST(QL63400V.TEKST AS VARCHAR(75)) AS Pensioniststatus,
-				JY64900V.CLEJE AS Lejeværdikode,
-				CAST(QL63500V.TEKST AS VARCHAR(75)) AS Lejeværdi,
+				JY64900V.CLEJE AS LejevÃ¦rdikode,
+				CAST(QL63500V.TEKST AS VARCHAR(75)) AS LejevÃ¦rdi,
 				JY64900V.CBSKADR AS Kode_for_adressebeskyttelse,
 				CAST(QL63600V.TEKST AS VARCHAR(75)) AS Adressebeskyttelse,
 				JY64900V.DSLUTS AS Slutseddeldato,
-				JY64900V.DSKOED AS Skødedato,
+				JY64900V.DSKOED AS SkÃ¸dedato,
 				JY64900V.DOVTG AS Overtagelsesdato,
-				CAST(QL63700V.TEKST AS VARCHAR(75)) AS Overdragelsesmåde,
-				JY64900V.BKOEBS AS Købesum,
-				CAST(CAST(JY64900V.GKOETAEL AS varchar(6)) + '/' + CAST(JY64900V.GKOENAEV AS varchar(6)) AS varchar(12)) AS Køberandel,
+				CAST(QL63700V.TEKST AS VARCHAR(75)) AS OverdragelsesmÃ¥de,
+				JY64900V.BKOEBS AS KÃ¸besum,
+				CAST(CAST(JY64900V.GKOETAEL AS varchar(6)) + '/' + CAST(JY64900V.GKOENAEV AS varchar(6)) AS varchar(12)) AS KÃ¸berandel,
 				CAST(CAST(JY64900V.GEJTAEL AS varchar(6)) + '/' + CAST(JY64900V.GEJNAEV AS varchar(6)) AS varchar(12)) AS Ejerandel,
 				JY64900V.DCPRCIR AS Ejer_CPR_CVR,
 				JY67700V.VEJ_KODE AS Vejkode,
@@ -46,8 +46,8 @@ SELECT
 				END AS LANDSEJERLAVSTEKST,
 				JY67300V.EPCEL AS Parcelnummer,
 				CAST(QL61000V.TEKST AS VARCHAR(75)) AS Artskode,
-				JY67300V.FMATAR AS Matrikulært_areal,
-				JY67300V.FVEJ AS Matrikulært_vejareal,
+				JY67300V.FMATAR AS MatrikulÃ¦rt_areal,
+				JY67300V.FVEJ AS MatrikulÃ¦rt_vejareal,
 				JY67500V.FTOTAR AS Ejendomsareal,
 				JY67500V.FTOTVEJ AS Heraf_vejareal,
 				JY67500V.FARVUR AS Vurderet_areal,
@@ -109,6 +109,6 @@ FROM
 				JY67700V.LANDSEJERLAVSKODE = JY67300V.CLELAV
 WHERE
 				(JY67500V.CARTK IN (2, 3, 8, 9, 20, 32, 33, 38, 39, 40)) AND (JY67500V.CBENYT <> '16')
-        -- CBENYT <>16: Alle ejendomme, som ikke er udgåede
-        -- Der er benyttet CAST til alle tekster fra kodetabeller, selvom det ikke måtte være nødvendigt. Jeg gør det af hensyn til MapInfo, som ellers vil tildele felterne 254 karakterer.
-        -- Oktober 2016: Viewet er ændret til at bruge JY67300V - DIMatrikel - som grundlæggende tabel. Hermed får man en entydig MatrikelID. Der er dog stadig nogle fejlregistreringer, som gør, at vi har syv matrikler, som ikke kan joines på MatrikelID. Der er simpelthen ikke overensstemmelse mellem reigstreringen i matriklen og i ESR.
+        -- CBENYT <>16: Alle ejendomme, som ikke er udgÃ¥ede
+        -- Der er benyttet CAST til alle tekster fra kodetabeller, selvom det ikke mÃ¥tte vÃ¦re nÃ¸dvendigt. Jeg gÃ¸r det af hensyn til MapInfo, som ellers vil tildele felterne 254 karakterer.
+        -- Oktober 2016: Viewet er Ã¦ndret til at bruge JY67300V - DIMatrikel - som grundlÃ¦ggende tabel. Hermed fÃ¥r man en entydig MatrikelID. Der er dog stadig nogle fejlregistreringer, som gÃ¸r, at vi har syv matrikler, som ikke kan joines pÃ¥ MatrikelID. Der er simpelthen ikke overensstemmelse mellem reigstreringen i matriklen og i ESR.
