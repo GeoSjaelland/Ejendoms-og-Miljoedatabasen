@@ -56,7 +56,7 @@ SELECT
 				A.beliggenhedsadresse_bogstavFra AS Husbogstav_Fra,
 				A.beliggenhedsadresse_bogstavTil AS Husbogstav_Til,
 				A.beliggenhedsadresse_etage AS Etage,
-				A.beliggenhedsadresse_sidedoer AS Side_dørnr,
+				A.beliggenhedsadresse_sidedoer AS Side_dÃ¸rnr,
 				CONVERT(varchar, ADG.LANDSEJERLAVKODE) + CONVERT(varchar, ADG.MATRNR) AS Matrikel_ID,
 				CONVERT(varchar, A.beliggenhedsadresse_kommune_kode)  + RIGHT('0000' + CONVERT(VARCHAR, A.beliggenhedsadresse_vejkode), 4) + RIGHT('000' + CONVERT(VARCHAR, A.beliggenhedsadresse_husnummerFra), 3) + RTRIM(A.beliggenhedsadresse_bogstavFra)  AS AdresseLink_ID,
 				CONVERT(varchar, A.beliggenhedsadresse_kommune_kode) + CONVERT(varchar, A.beliggenhedsadresse_vejkode) + RIGHT('000' + CONVERT(VARCHAR, A.beliggenhedsadresse_husnummerFra), 3) + RTRIM(A.beliggenhedsadresse_bogstavFra) AS Adresse_ID,
@@ -72,4 +72,4 @@ WHERE	A.beliggenhedsadresse_kommune_kode = 336
 	 AND A.livsforloeb_ophoersdato = ''
 	 -- or A.livsforloeb_ophoersdato > GetDate() -- husk paranteser, hvis sidste betingelse skal med...
 
-	-- livsforloeb_ophoersdato er ikke oprettet som date i tabellen, så sidste betingelse er lidt meningsløs...
+	-- livsforloeb_ophoersdato er ikke oprettet som date i tabellen, sÃ¥ sidste betingelse er lidt meningslÃ¸s...
