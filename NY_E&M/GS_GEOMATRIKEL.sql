@@ -1,7 +1,10 @@
 SELECT
 				Jordstykke.MATRNR + ', ' + Jordstykke.ELAVSNAVN AS Søg,
-				RTRIM(Matrikeladresse.VEJ_ADRESSENAVN) + ' ' + REPLACE(LTRIM(REPLACE(RTRIM(Matrikeladresse.HUS_NUMMER), '0', ' ')), ' ', '0') AS Matrikeladresse,
-				DIMatrikel.EEJDNR AS Ejendomsnummer,
+				CAST(RTRIM(Matrikeladresse.VEJ_ADRESSENAVN) + ' ' + REPLACE(LTRIM(REPLACE(RTRIM(Matrikeladresse.HUS_NUMMER), '0', ' ')), ' ', '0') AS VARCHAR(80)) AS Matrikeladresse,
+				CASE WHEN DIMatrikel.EEJDNR > 0
+				THEN DIMatrikel.EEJDNR
+				ELSE CONVERT(INT, RIGHT(CONVERT(VARCHAR,Jordstykke.esr_ejdnr),5))
+				END AS Ejendomsnummer,
 				Jordstykke.ELAVSNAVN,
 				Jordstykke.ELAVSKODE,
 				Jordstykke.MATRNR,
@@ -40,24 +43,25 @@ SELECT
 				Jordstykke.GEOMDATO,
 				Jordstykke.PUBLIDATO,
 				Jordstykke.MI_PRINX,
-				Jordstykke.MI_STYLE,
+				CAST('Pen (1,2,0) Brush (1,0,16777215)' AS varchar(254)) AS MI_STYLE,
 				Jordstykke.OBJECTID,
 				Jordstykke.Shape,
 				CASE WHEN CONVERT(VARCHAR,
 					Jordstykke.MATRNR) <> ''
-					THEN CONVERT(VARCHAR,
-					Jordstykke.ELAVSKODE) + '' + CONVERT(VARCHAR,	Jordstykke.MATRNR)
+					THEN CONVERT(VARCHAR, Jordstykke.ELAVSKODE) + '' + CONVERT(VARCHAR,	Jordstykke.MATRNR)
 				END AS MatrikelID,
-				Matrikeladresse.EJENDOMSNR AS EJD_NR
+				Matrikeladresse.EJENDOMSNR AS EJD_NR,
+				Jordstykke.ELAVSKODE AS Landsejerlavskode,
+				DIMatrikel.CARTK AS Artskode,
+				QL61000V.TEKST AS Matrikeltype
+
 
 FROM
-				QL60400V RIGHT OUTER JOIN
-				JY67300V DIMatrikel ON QL60400V.KODE = DIMatrikel.CZONE RIGHT OUTER JOIN
-				CA_GEO_Jordstykker Jordstykke INNER JOIN
-				JN67100T Kommunetabel ON Jordstykke.KOMKODE = Kommunetabel.KOMMUNENUMMER LEFT OUTER JOIN
-				JY67700V Matrikeladresse ON Jordstykke.ELAVSKODE = Matrikeladresse.LANDSEJERLAVSKODE AND Jordstykke.MATRNR = CONVERT(VARCHAR,
-				Matrikeladresse.MATRIKELNR) + CONVERT(VARCHAR, Matrikeladresse.MATRIKELBOGSTAV) ON DIMatrikel.AMATBOG = Jordstykke.MATRNR AND
-				DIMatrikel.CLELAV = Jordstykke.ELAVSKODE
-
-WHERE
-				(DIMatrikel.CARTK < 2)
+				CA_GEO_Jordstykker AS Jordstykke INNER JOIN
+				JN67100T AS Kommunetabel ON Jordstykke.KOMKODE = Kommunetabel.KOMMUNENUMMER LEFT OUTER JOIN
+        QL60400V RIGHT OUTER JOIN
+        QL61000V RIGHT OUTER JOIN
+        JY67300V AS DIMatrikel ON QL61000V.KODE = DIMatrikel.CARTK LEFT OUTER JOIN
+        JY67700V AS Matrikeladresse ON DIMatrikel.EEJDNR = Matrikeladresse.EJENDOMSNR AND DIMatrikel.CLELAV = Matrikeladresse.LANDSEJERLAVSKODE AND
+        DIMatrikel.ABGSTM = Matrikeladresse.MATRIKELBOGSTAV AND DIMatrikel.EMATNR = Matrikeladresse.MATRIKELNR ON
+        QL60400V.KODE = DIMatrikel.CZONE ON Jordstykke.MATRNR = DIMatrikel.AMATBOG AND Jordstykke.ELAVSKODE = DIMatrikel.CLELAV
