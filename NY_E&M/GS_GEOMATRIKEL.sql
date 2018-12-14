@@ -57,7 +57,7 @@ SELECT
 
 
 FROM
-				CA_GEO_Jordstykker AS Jordstykke INNER JOIN
+				GEO_Jordstykker AS Jordstykke INNER JOIN
 				JN67100T AS Kommunetabel ON Jordstykke.KOMKODE = Kommunetabel.KOMMUNENUMMER LEFT OUTER JOIN
         QL60400V RIGHT OUTER JOIN
         QL61000V RIGHT OUTER JOIN
