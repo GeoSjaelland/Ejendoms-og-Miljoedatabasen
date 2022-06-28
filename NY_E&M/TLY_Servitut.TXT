@@ -1,0 +1,90 @@
+Select
+				Q.Tekst as Tillaegstekst,
+				W.URLList ServitutTekstSummarisk,
+				T.ServitutType,
+				X.URLList Servitut_Art_Koder,
+				A.Tekst Anmarkning,
+				T.TinglysningsDato,
+				T.SenestPaategnetDato,
+				T.OgsaaLystPaaAntal,
+				T.EjendommeMedtaget,
+				T.Dok_id,
+				T.Dok_RevisionNr,
+				T.CognitoLink,
+				T.GEOMETRI,
+				isnull(cast(ROW_NUMBER() OVER(ORDER BY (Select '')) as int),-1) AS OBJEKTID,
+				isnull(cast(ROW_NUMBER() OVER(ORDER BY (Select '')) as int),-1) AS MI_PRINX,
+				cast('Pen (1, 2, 255) Brush (1, 0, 16777215)' as char(150)) as MI_STYLE
+				--into _KME__Servitut
+from (
+				Select
+								Dok_id
+								,max(Dok_RevisionNr) Dok_RevisionNr
+								,TinglysningsDato
+								,max(SenestPaategnetDato) SenestPaategnetDato
+								,OgsaaLystPaaAntal
+								,EjendommeMedtaget
+								,ServitutType
+								,Cognitolink
+								,geometry::UnionAggregate(GEOMETRI) AS GEOMETRI
+								from TLY__KME_SERVITUT
+								Group by
+								Dok_id
+								,TinglysningsDato
+								,OgsaaLystPaaAntal
+								,EjendommeMedtaget
+								,ServitutType
+								,Cognitolink
+								) T
+
+left join (
+				Select distinct
+								Dok_id,
+								Dok_RevisionNr,
+								Overskrift,
+								Tekst
+								from TLY__KME_SERVITUTEJENDOM A
+								inner join TLY__KME_SERVITUTTILLAEGSTEKSTER B
+									on A.Serv_id = B.serv_id
+									and Overskrift = 'Tillægstekst'
+									) Q on
+									Q.Dok_id = T.Dok_id
+
+left join (
+				Select distinct
+								Dok_id,
+								Dok_RevisionNr,
+								Overskrift,
+								Tekst
+				from TLY__KME_SERVITUTEJENDOM A
+inner join TLY__KME_SERVITUTTILLAEGSTEKSTER B
+	on A.Serv_id = B.serv_id
+	and Overskrift = 'Anmærkning'
+	) A on A.Dok_id = T.Dok_id
+
+left join (
+				Select distinct dok_id,
+								STUFF((SELECT DISTINCT ',' + ServitutTekstSummarisk
+								          FROM TLY__KME_SERVITUTEJENDOM
+								          WHERE dok_id = a.dok_id
+								          FOR XML PATH (''))
+								          , 1, 1, '')  AS URLList
+								from TLY__KME_SERVITUTEJENDOM A
+								where ServitutTekstSummarisk <> ''
+									) W on W.Dok_id = T.Dok_id
+
+left join (
+				Select distinct
+								Dok_id,
+								STUFF((SELECT DISTINCT ',' + Serv_kode_art + ': ' + Serv_kode
+				FROM TLY__KME_SERVITUTEJENDOM C
+				inner join TLY__KME_SERVITUTKODER D
+					on C.Serv_id = D.serv_id
+				          WHERE c.dok_id = a.dok_id
+				          FOR XML PATH (''))
+				          , 1, 1, '')  AS URLList
+				from TLY__KME_SERVITUTEJENDOM A
+inner join TLY__KME_SERVITUTKODER B
+	on A.Serv_id = B.serv_id
+	) X on X.Dok_id = T.Dok_id
+order by T.Dok_id

@@ -1,4 +1,6 @@
 ﻿SELECT
+				GS_BORGER_FLYTNING.Fraflytningskommunenr,
+				GS_BORGER_FLYTNING.Fraflytningskommune,
 				GS_BORGER_FLYTNING.Bopælskommunenr,
 				GS_BORGER_FLYTNING.Bopælskommune,
 				GS_BORGER_FLYTNING.PERSONNUMMER,
@@ -13,6 +15,7 @@
 				GS_BORGER_FLYTNING.Bynavn,
 				GS_BORGER_FLYTNING.Postdistrikt,
 				GS_BORGER_FLYTNING.Tilflytningsdato,
+				GS_BORGER_FLYTNING.Fraflytningsdato,
 				GS_BORGER_FLYTNING.Borgerstatus,
 				GS_BORGER_FLYTNING.Borgerstatuskode,
 				GS_BORGER_FLYTNING.Landekode,
@@ -28,6 +31,7 @@ FROM
 				FROM
 				GS_BORGER_FLYTNING AS GS_BORGER_FLYTNING_1
 				GROUP BY CPR) AS maxdato ON GS_BORGER_FLYTNING.CPR = maxdato.CPR AND
-				GS_BORGER_FLYTNING.Tilflytningsdato = maxdato.Tilflytningsdato
+				GS_BORGER_FLYTNING.Tilflytningsdato = maxdato.Tilflytningsdato INNER JOIN
+				JN67100T ON GS_BORGER_FLYTNING.Bopælskommunenr = JN67100T.KOMMUNENUMMER
 WHERE
 				(GS_BORGER_FLYTNING.Borgerstatuskode < 30)

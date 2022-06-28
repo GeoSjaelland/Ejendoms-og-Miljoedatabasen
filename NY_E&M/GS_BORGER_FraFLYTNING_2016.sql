@@ -88,3 +88,12 @@ FROM
         QL58900V ON Borger.BORGERSTATUS_KODE = QL58900V.KODE ON Bosaettelse.PERSONNUMMER = Borger.PERSONNUMMER  LEFT OUTER JOIN
         LAND_ADRESSEPUNKT AS APU ON  Bosaettelse.HUS_NUMMER = APU.HUS_NR AND Bosaettelse.VEJ_KODE = APU.VejKode AND
         Bosaettelse.KOMMUNENUMMER = APU.KommuneNummer
+WHERE
+				(YEAR(CONVERT(varchar, LEFT(Bosaettelse.ADR_TILFLYT_TS, 10), 23)) = 2016
+				AND (Bosaettelse.FRAFLYT_KOMMUNENR = 336)
+				AND (CONVERT(varchar, LEFT(Bosaettelse.ADR_TILFLYT_TS, 10), 23))  = (CONVERT(varchar, LEFT(Bosaettelse.KOM_TILFLYTDATO, 10), 23))
+				AND CONVERT(varchar, Borger.FØDSEL_DATO, 23)<> Bosaettelse.KOM_TILFLYTDATO)
+				OR
+				(Bosaettelse.KOMMUNENUMMER=336
+				AND Borger.BORGERSTATUS_KODE IN (70,80)
+				AND YEAR(CONVERT(varchar, LEFT(Bosaettelse.ADR_FRAFLYT_TS, 10), 23)) = 2016)

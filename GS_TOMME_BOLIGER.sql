@@ -1,7 +1,11 @@
-SELECT    *
-FROM      GS_BBREnhed
-WHERE     (UDVadresseID NOT IN
-          (SELECT UDVadresseID
-           FROM GS_BORGER)) 
-          AND (NOT (Boligtype IS NULL)) 
-ORDER BY  Adresse, Boligtypekode
+SELECT
+				GS_BBRENHED.*,
+				GS_DAR_ADRESSER.Geometri,
+				GS_DAR_ADRESSER.MI_STYLE
+				FROM
+				GS_BBRENHED LEFT OUTER JOIN
+				GS_DAR_ADRESSER ON GS_BBRENHED.ADRESSE_ID = GS_DAR_ADRESSER.ADRESSE_ID
+WHERE
+				(GS_BBRENHED.UDVadresseID NOT IN
+					(SELECT        UDVadresseID
+					FROM GS_BORGER)) AND (GS_BBRENHED.Boligtypekode <> 'E') AND (GS_BBRENHED.Anvendelseskode < 200) AND (CONVERT(int, GS_BBRENHED.Boligtypekode) < 3) AND (GS_BBRENHED.Kondemneret_boligenhed <> 1)
